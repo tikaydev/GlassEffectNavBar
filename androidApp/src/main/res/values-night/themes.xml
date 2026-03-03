@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2024 Homi. All rights reserved.
+    Homi Android Team <developers@homi>
+    Created by Alex Tenkorang
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+    </style>
+
+    <style name="Theme.GlassEffect.Splash" parent="NightAdjusted.Theme.Splash">
+        <item name="android:windowBackground">@android:color/black</item>
+        <!-- No logo, no animation icon -->
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+        <item name="windowSplashScreenIconBackgroundColor">@android:color/black</item>
+        <item name="android:windowSplashScreenAnimationDuration" tools:targetApi="31">5</item>
+        <!-- Solid black background or match your splash video -->
+        <item name="windowSplashScreenBackground">@android:color/black</item>
+        <item name="postSplashScreenTheme">@style/Theme.GlassEffect</item>
+    </style>
+</resources>
