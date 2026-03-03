@@ -18,7 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.RoundRect
@@ -70,6 +71,8 @@ fun NavRail(
         val itemHeight = 64.dp
         val spacing = 8.dp
         val verticalPadding = 32.dp
+        val cornerRadius = 16.dp
+        val shape = RoundedCornerShape(cornerRadius)
 
         Box(
             modifier = modifier,
@@ -80,7 +83,8 @@ fun NavRail(
                     .padding(horizontal = 8.dp)
                     .width(80.dp)
                     .wrapContentHeight()
-                    .clip(CircleShape)
+                    .shadow(elevation = 8.dp, shape = shape)
+                    .clip(shape)
                     .hazeEffect(
                         state = hazeState,
                         style = HazeStyle(
@@ -97,7 +101,7 @@ fun NavRail(
                                 Color.White.copy(alpha = .2f),
                             ),
                         ),
-                        shape = CircleShape
+                        shape = shape
                     ),
             ) {
                 Column(
@@ -139,7 +143,6 @@ fun NavRail(
                                     .height(itemHeight)
                                     .pointerInput(Unit) {
                                         detectTapGestures {
-//                                            onTabSelected(tab)
                                             onDestinationSelected(destination)
                                         }
                                     },
@@ -176,7 +179,7 @@ fun NavRail(
                 Canvas(
                     modifier = Modifier
                         .matchParentSize()
-                        .clip(CircleShape)
+                        .clip(shape)
                         .blur(50.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
                 ) {
                     drawCircle(
@@ -192,10 +195,10 @@ fun NavRail(
                 Canvas(
                     modifier = Modifier
                         .matchParentSize()
-                        .clip(CircleShape)
+                        .clip(shape)
                 ) {
                     val path = Path().apply {
-                        addRoundRect(RoundRect(size.toRect(), CornerRadius(size.width / 2f)))
+                        addRoundRect(RoundRect(size.toRect(), CornerRadius(cornerRadius.toPx())))
                     }
                     val length = PathMeasure().apply { setPath(path, false) }.length
 
