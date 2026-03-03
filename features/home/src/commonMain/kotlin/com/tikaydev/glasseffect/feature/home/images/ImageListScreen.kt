@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -20,20 +18,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.retain.retain
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.PlatformContext
-import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
-import coil3.request.CachePolicy
-import coil3.request.ImageRequest
 import com.tikaydev.glasseffect.core.designsystem.navigation.SharedElementKeys
 import com.tikaydev.glasseffect.core.designsystem.provider.LocalHazeStateProvider
 import com.tikaydev.glasseffect.core.designsystem.utils.ImageLoader
@@ -49,26 +40,17 @@ fun ImageListRoute(
     animatedVisibilityScope: AnimatedVisibilityScope? = null
 ) {
 
-//    Scaffold(
-////        topBar = {
-////            TopAppBar(
-////                title = { Text(text = "Images") },
-////            )
-////        }
-//    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-//                .padding(paddingValues)
-        ) {
-            ImageListScreen(
-                shouldUseNavRail = shouldUseNavRail,
-                onClick = onClick,
-                sharedTransitionScope = sharedTransitionScope,
-                animatedVisibilityScope = animatedVisibilityScope
-            )
-        }
-//    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        ImageListScreen(
+            shouldUseNavRail = shouldUseNavRail,
+            onClick = onClick,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedVisibilityScope = animatedVisibilityScope
+        )
+    }
 }
 
 
@@ -147,11 +129,11 @@ fun ImageItem(
                 if (sharedTransitionScope != null && animatedVisibilityScope != null) {
                     with(sharedTransitionScope) {
                         imageModifier.sharedElement(
-                                sharedContentState = rememberSharedContentState(
-                                    key = "${SharedElementKeys.MOVIE_POSTER}${imageIndex}-${imageUrl}"
-                                ),
-                                animatedVisibilityScope = animatedVisibilityScope,
-                            )
+                            sharedContentState = rememberSharedContentState(
+                                key = "${SharedElementKeys.MOVIE_POSTER}${imageIndex}-${imageUrl}"
+                            ),
+                            animatedVisibilityScope = animatedVisibilityScope,
+                        )
                             .clip(cornerShape)
                     }
                 } else {

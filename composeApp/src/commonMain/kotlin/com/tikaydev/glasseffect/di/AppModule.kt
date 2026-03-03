@@ -4,9 +4,10 @@ import com.tikaydev.glasseffect.MainViewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
+import org.koin.compose.viewmodel.dsl.viewModel
 
 val appModule = module {
-    factory {
+    viewModel {
         MainViewModel()
     }
 }

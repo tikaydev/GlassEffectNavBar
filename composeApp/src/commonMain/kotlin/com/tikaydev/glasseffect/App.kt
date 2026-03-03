@@ -17,30 +17,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.window.core.layout.WindowSizeClass
 import com.tikaydev.glasseffect.core.designsystem.provider.LocalHazeStateProvider
 import com.tikaydev.glasseffect.core.designsystem.theme.AppTheme
 import com.tikaydev.glasseffect.navigation.RootNavGraph
 import com.tikaydev.glasseffect.navigation.component.BottomBar
 import com.tikaydev.glasseffect.navigation.component.NavRail
 import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
-fun App() {
+fun App(
+    viewModel: MainViewModel = koinViewModel()
+) {
     val appState: AppState = rememberAppState()
     val hazeState = remember { HazeState(true) }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
     val shouldShowNavRail = windowSizeClass.isWidthAtLeastBreakpoint(
-        WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND
+        androidx.window.core.layout.WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND
     )
+    val isDarkMode by viewModel.isDarkMode
 
     CompositionLocalProvider(
         LocalHazeStateProvider provides hazeState,
     ) {
         AppTheme(
-            darkTheme = true,
+            isDarkTheme = isDarkMode,
         ) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
@@ -71,6 +75,10 @@ fun App() {
                         RootNavGraph(
                             appState = appState,
                             shouldShowNavRail = shouldShowNavRail,
+                            onThemeToggle = viewModel::toggleTheme,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .hazeSource(hazeState)
                         )
 
                         if (!shouldShowNavRail) {

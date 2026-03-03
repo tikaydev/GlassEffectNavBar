@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.PathMeasure
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -137,7 +138,12 @@ fun BottomBar(
                             verticalArrangement = Arrangement.Center,
                         ) {
                             Icon(imageVector = destination.icon, contentDescription = "tab ${destination.title}")
-                            Text(text = destination.title)
+                            Text(
+                                text = destination.title,
+                                style = TextStyle(
+                                    fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold
+                                )
+                            )
                         }
                     }
                 }
