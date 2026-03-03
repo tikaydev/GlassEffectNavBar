@@ -36,23 +36,23 @@ tasks {
 gradlePlugin {
     plugins {
         register("kotlinMultiplatform") {
-            id = libs.plugins.pvault.kotlin.multiplatform.get().pluginId
+            id = libs.plugins.glass.kotlin.multiplatform.get().pluginId
             implementationClass = "KotlinMultiplatformConventionPlugin"
         }
         register("composeMultiplatform"){
-            id = libs.plugins.pvault.compose.multiplatform.library.get().pluginId
+            id = libs.plugins.glass.compose.multiplatform.library.get().pluginId
             implementationClass = "ComposeMultiplatformConventionPlugin"
         }
         register("composeMultiplatformFeature"){
-            id = libs.plugins.pvault.compose.multiplatform.feature.get().pluginId
+            id = libs.plugins.glass.compose.multiplatform.feature.get().pluginId
             implementationClass = "ComposeMultiplatformFeatureConventionPlugin"
         }
         register("iosVersionUpdate") {
-            id = libs.plugins.pvault.ios.versionUpdate.get().pluginId
+            id = libs.plugins.glass.ios.versionUpdate.get().pluginId
             implementationClass = "com.tikaydev.glasseffect.IosVersionUpdatePlugin"
         }
         register("root") {
-            id = libs.plugins.pvault.root.get().pluginId
+            id = libs.plugins.glass.root.get().pluginId
             implementationClass = "RootPlugin"
         }
     }

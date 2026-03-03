@@ -8,8 +8,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 class ComposeMultiplatformFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         with(pluginManager) {
-            apply(libs.findPlugin("pvault.kotlin.multiplatform").get().get().pluginId)
-            apply(libs.findPlugin("pvault.compose.multiplatform.library").get().get().pluginId)
+            apply(libs.findPlugin("glass.kotlin.multiplatform").get().get().pluginId)
+            apply(libs.findPlugin("glass.compose.multiplatform.library").get().get().pluginId)
             apply(libs.findPlugin("android.library").get().get().pluginId)
         }
 

@@ -53,7 +53,7 @@ sandwichKtor = "2.2.1"
 sandwichKtorfit = "2.2.1"
 sqlite = "2.6.2"
 datastore = "1.2.0"
-
+androidxCoreSplashscreen = "1.2.0"
 firebaseCrashlyticsPlugin = "3.0.6"
 firebasePerfPlugin = "2.0.2"
 google = "4.4.4"
@@ -102,6 +102,7 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 materialKolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 
 # ViewModel
 # https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-viewmodel-compose
@@ -223,11 +224,11 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google" }
 
-pvault-kotlin-multiplatform = { id = "pvault.kotlin.multiplatform" }
-pvault-compose-multiplatform-library = { id = "pvault.compose.multiplatform-library" }
-pvault-compose-multiplatform-feature = { id = "pvault.compose.multiplatform.feature" }
-pvault-ios-versionUpdate = { id = "pvault.ios.versionUpdate" }
-pvault-root = { id = "pvault.root" }
+glass-kotlin-multiplatform = { id = "glass.kotlin.multiplatform" }
+glass-compose-multiplatform-library = { id = "glass.compose.multiplatform.library" }
+glass-compose-multiplatform-feature = { id = "glass.compose.multiplatform.feature" }
+glass-ios-versionUpdate = { id = "glass.ios.versionUpdate" }
+glass-root = { id = "pvault.root" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.36.0" }

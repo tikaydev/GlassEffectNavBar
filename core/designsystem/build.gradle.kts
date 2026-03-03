@@ -1,7 +1,7 @@
 
 plugins {
-    alias(libs.plugins.pvault.kotlin.multiplatform)
-    alias(libs.plugins.pvault.compose.multiplatform.library)
+    alias(libs.plugins.glass.kotlin.multiplatform)
+    alias(libs.plugins.glass.compose.multiplatform.library)
     alias(libs.plugins.kotlin.serialization)  // for navigation routes
 }
 

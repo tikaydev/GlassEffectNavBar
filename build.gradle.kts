@@ -15,9 +15,9 @@ plugins {
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
     alias(libs.plugins.firebase.perf) apply false
-    alias(libs.plugins.pvault.ios.versionUpdate)
+    alias(libs.plugins.glass.ios.versionUpdate)
     alias(libs.plugins.compose.hot.reload) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.koin.compiler) apply false
-    alias(libs.plugins.pvault.root)
+    alias(libs.plugins.glass.root)
 }
