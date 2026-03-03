@@ -1,5 +1,6 @@
 package com.tikaydev.glasseffect.feature.settings
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,9 +33,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.tikaydev.glasseffect.core.designsystem.theme.isDarkTheme
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    onThemeToggle: () -> Unit
+) {
+    // Read the theme state from CompositionLocal to ensure it updates reactively
+    val isDarkMode = MaterialTheme.isDarkTheme.isDark
+
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -43,7 +52,6 @@ fun SettingsScreen() {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp)
-                .padding(end = 32.dp)
         ) {
             Text(
                 text = "Settings",
@@ -55,8 +63,15 @@ fun SettingsScreen() {
             SettingsSection(title = "App Settings") {
                 SettingsItem(
                     icon = Icons.Rounded.ColorLens,
-                    title = "Appearance",
-                    subtitle = "Dark mode, themes"
+                    title = "Dark Mode",
+                    subtitle = if (isDarkMode) "Enabled" else "Disabled",
+                    onClick = onThemeToggle,
+                    trailingContent = {
+                        Switch(
+                            checked = isDarkMode,
+                            onCheckedChange = { onThemeToggle() }
+                        )
+                    }
                 )
                 ItemDivider()
                 SettingsItem(
@@ -145,11 +160,14 @@ private fun SettingsSection(
 private fun SettingsItem(
     icon: ImageVector,
     title: String,
-    subtitle: String? = null
+    subtitle: String? = null,
+    onClick: (() -> Unit)? = null,
+    trailingContent: @Composable (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(enabled = onClick != null) { onClick?.invoke() }
             .padding(16.dp)
             .padding(vertical = 8.dp)
             .padding(horizontal = 32.dp),
@@ -179,11 +197,16 @@ private fun SettingsItem(
                 )
             }
         }
-        Icon(
-            imageVector = Icons.Rounded.ChevronRight,
-            contentDescription = null,
-            modifier = Modifier.size(20.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-        )
+        
+        if (trailingContent != null) {
+            trailingContent()
+        } else {
+            Icon(
+                imageVector = Icons.Rounded.ChevronRight,
+                contentDescription = null,
+                modifier = Modifier.size(20.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+            )
+        }
     }
 }
