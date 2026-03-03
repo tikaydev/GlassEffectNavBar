@@ -33,15 +33,18 @@ class AppState(
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() {
             return TopLevelDestination.entries.firstOrNull { topLevelDestination ->
-                navBackStack.last() == topLevelDestination.route
+                navBackStack.lastOrNull() == topLevelDestination.route
             }
         }
 
     @Composable
     fun shouldShowBottomBar(): Boolean {
-        return navBackStack.last() in bottomBarRoutes
+        return navBackStack.lastOrNull() in bottomBarRoutes
     }
 
+    fun isTopLevelRoute(route: Route?): Boolean {
+        return route in bottomBarRoutes
+    }
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         val targetRoute = when (topLevelDestination) {
@@ -53,7 +56,9 @@ class AppState(
 
         if (navBackStack.lastOrNull() == targetRoute) return
 
-        navBackStack.clear()
+        if (navBackStack.lastOrNull() != HomeRoute.ImageListRoute) {
+            navBackStack.removeLastOrNull()
+        }
         navBackStack.add(targetRoute)
     }
 }
