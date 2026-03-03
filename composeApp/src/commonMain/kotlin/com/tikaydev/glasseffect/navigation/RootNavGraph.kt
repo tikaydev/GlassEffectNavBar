@@ -70,8 +70,12 @@ fun RootNavGraph(
                     sharedTransitionScope = this@SharedTransitionLayout
                 )
 
-                menuEntry()
-                profileEntry()
+                menuEntry(
+                    shouldUseNavRail = shouldShowNavRail
+                )
+                profileEntry(
+                    shouldUseNavRail = shouldShowNavRail
+                )
                 settingsEntry(
                     onThemeToggle = onThemeToggle
                 )
