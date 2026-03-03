@@ -208,9 +208,6 @@ private fun ProfileGridActionItem(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
         onClick = onClick
     ) {
         Column(
