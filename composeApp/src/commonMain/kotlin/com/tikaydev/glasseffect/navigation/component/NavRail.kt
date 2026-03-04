@@ -5,6 +5,8 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -68,7 +70,23 @@ fun NavRail(
     modifier: Modifier = Modifier,
     onDestinationSelected: (TopLevelDestination) -> Unit,
 ) {
-    AnimatedVisibility(visible = appState.shouldShowBottomBar()) {
+    AnimatedVisibility(
+        visible = appState.shouldShowBottomBar(),
+        enter = slideInHorizontally(
+            initialOffsetX = { -it },
+            animationSpec = spring(
+                stiffness = Spring.StiffnessLow,
+                dampingRatio = Spring.DampingRatioMediumBouncy
+            )
+        ),
+        exit = slideOutHorizontally(
+            targetOffsetX = { -it },
+            animationSpec = spring(
+                stiffness = Spring.StiffnessLow,
+                dampingRatio = Spring.DampingRatioLowBouncy
+            )
+        )
+    ) {
         val itemHeight = 64.dp
         val spacing = 8.dp
         val verticalPadding = 32.dp
@@ -243,7 +261,7 @@ fun NavRailPreview() {
     val appState = rememberAppState()
     Row(
         modifier = Modifier.fillMaxSize(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         NavRail(
@@ -261,6 +279,12 @@ fun NavRailPreview() {
         NavRail(
             appState = appState,
             selectedTabIndex = 2,
+            hazeState = HazeState(true),
+            onDestinationSelected = {},
+        )
+        NavRail(
+            appState = appState,
+            selectedTabIndex = 3,
             hazeState = HazeState(true),
             onDestinationSelected = {},
         )

@@ -5,6 +5,8 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -68,10 +70,24 @@ fun BottomBar(
 ) {
     AnimatedVisibility(
         visible = appState.shouldShowBottomBar(),
+        enter = slideInVertically(
+            initialOffsetY = { it },
+            animationSpec = spring(
+                stiffness = Spring.StiffnessLow,
+                dampingRatio = Spring.DampingRatioMediumBouncy
+            )
+        ),
+        exit = slideOutVertically(
+            targetOffsetY = { it },
+            animationSpec = spring(
+                stiffness = Spring.StiffnessLow,
+                dampingRatio = Spring.DampingRatioLowBouncy
+            )
+        ),
         modifier = modifier
     ) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .padding(vertical = 8.dp, horizontal = 32.dp)
                 .clip(CircleShape)
                 .fillMaxWidth()
@@ -247,6 +263,12 @@ fun BottomBarPreview() {
         )
         BottomBar(
             selectedTabIndex = 2,
+            appState = appState,
+            hazeState = HazeState(true),
+            onDestinationSelected = {},
+        )
+        BottomBar(
+            selectedTabIndex = 3,
             appState = appState,
             hazeState = HazeState(true),
             onDestinationSelected = {},
