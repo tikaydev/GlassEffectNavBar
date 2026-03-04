@@ -16,37 +16,34 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.retain.retain
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.PlatformContext
 import coil3.compose.LocalPlatformContext
 import com.tikaydev.glasseffect.core.designsystem.navigation.SharedElementKeys
 import com.tikaydev.glasseffect.core.designsystem.provider.LocalHazeStateProvider
+import com.tikaydev.glasseffect.core.designsystem.provider.screenSize
+import com.tikaydev.glasseffect.core.designsystem.theme.AppTheme
 import com.tikaydev.glasseffect.core.designsystem.utils.ImageLoader
 import com.tikaydev.glasseffect.feature.home.imageList
 import dev.chrisbanes.haze.hazeSource
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageListRoute(
-    isLargeScreen: Boolean,
     onClick: (Int) -> Unit,
     sharedTransitionScope: SharedTransitionScope? = null,
     animatedVisibilityScope: AnimatedVisibilityScope? = null
 ) {
-
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         ImageListScreen(
-            isLargeScreen = isLargeScreen,
             onClick = onClick,
             sharedTransitionScope = sharedTransitionScope,
             animatedVisibilityScope = animatedVisibilityScope
@@ -57,21 +54,29 @@ fun ImageListRoute(
 
 @Composable
 fun ImageListScreen(
-    isLargeScreen: Boolean,
     onClick: (Int) -> Unit,
     sharedTransitionScope: SharedTransitionScope? = null,
     animatedVisibilityScope: AnimatedVisibilityScope? = null
 ) {
+    val isLargeScreen = MaterialTheme.screenSize.isLargeScreen
     val listState = rememberLazyGridState()
     val imageUrls = retain { imageList }
-    val hazeState = LocalHazeStateProvider.current
+//    val hazeState = LocalHazeStateProvider.current
     val platformContext = LocalPlatformContext.current
+
+    val columns = remember(isLargeScreen) {
+        if (isLargeScreen) {
+            GridCells.Adaptive(minSize = 280.dp)
+        } else {
+            GridCells.Fixed(2)
+        }
+    }
 
     LazyVerticalGrid(
         state = listState,
-        columns = if (isLargeScreen) GridCells.Adaptive(minSize = 280.dp) else GridCells.Fixed(2),
+        columns = columns,
         modifier = Modifier
-            .hazeSource(hazeState)
+//            .hazeSource(hazeState)
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -152,3 +157,22 @@ fun ImageItem(
     }
 }
 
+@Preview(showSystemUi = true)
+@Composable
+fun ImageListScreenDarkPreview(){
+    AppTheme(isDarkTheme = true) {
+        ImageListScreen(
+            onClick = {},
+        )
+    }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun ImageListScreenLightPreview(){
+    AppTheme() {
+        ImageListScreen(
+            onClick = {},
+        )
+    }
+}
