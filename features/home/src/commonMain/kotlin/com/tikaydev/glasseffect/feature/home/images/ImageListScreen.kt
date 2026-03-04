@@ -27,12 +27,10 @@ import androidx.compose.ui.unit.dp
 import coil3.PlatformContext
 import coil3.compose.LocalPlatformContext
 import com.tikaydev.glasseffect.core.designsystem.navigation.SharedElementKeys
-import com.tikaydev.glasseffect.core.designsystem.provider.LocalHazeStateProvider
 import com.tikaydev.glasseffect.core.designsystem.provider.screenSize
 import com.tikaydev.glasseffect.core.designsystem.theme.AppTheme
 import com.tikaydev.glasseffect.core.designsystem.utils.ImageLoader
 import com.tikaydev.glasseffect.feature.home.imageList
-import dev.chrisbanes.haze.hazeSource
 
 @Composable
 fun ImageListRoute(
@@ -61,7 +59,6 @@ fun ImageListScreen(
     val isLargeScreen = MaterialTheme.screenSize.isLargeScreen
     val listState = rememberLazyGridState()
     val imageUrls = retain { imageList }
-//    val hazeState = LocalHazeStateProvider.current
     val platformContext = LocalPlatformContext.current
 
     val columns = remember(isLargeScreen) {
@@ -76,7 +73,6 @@ fun ImageListScreen(
         state = listState,
         columns = columns,
         modifier = Modifier
-//            .hazeSource(hazeState)
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
