@@ -43,11 +43,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tikaydev.glasseffect.core.designsystem.provider.screenSize
+import com.tikaydev.glasseffect.core.designsystem.theme.AppTheme
 
 @Composable
-fun MenuScreen(
-    isLargeScreen: Boolean = false
-) {
+fun MenuScreen() {
+    val isLargeScreen = MaterialTheme.screenSize.isLargeScreen
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -143,8 +145,7 @@ private fun QuickActionItem(
         modifier = modifier.height(100.dp),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = containerColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        onClick = { /* Handle click */ }
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -174,15 +175,15 @@ private fun MenuItemCard(item: MenuItemData) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable { /* Handle click */ },
-        shape = RoundedCornerShape(10.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
-        ),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+        )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 16.dp)
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -245,11 +246,21 @@ private val generalMenuItems = listOf(
     MenuItemData(Icons.Rounded.Bookmark, "Saved", "Items you've bookmarked", Color(0xFF9C27B0)),
 )
 
-@Preview
+@Preview(
+    showSystemUi = true,
+)
 @Composable
-private fun MenuScreenPreview() {
-    MenuScreen(
-        isLargeScreen = true
-    )
+fun MenuScreenDarkPreview() {
+    AppTheme(isDarkTheme = true) {
+        MenuScreen()
+    }
 }
-
+@Preview(
+    showSystemUi = true,
+)
+@Composable
+fun MenuScreenLightPreview() {
+    AppTheme {
+        MenuScreen()
+    }
+}
