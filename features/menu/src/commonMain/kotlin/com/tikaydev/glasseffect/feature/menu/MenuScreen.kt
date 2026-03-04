@@ -143,7 +143,8 @@ private fun QuickActionItem(
         modifier = modifier.height(100.dp),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = containerColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        onClick = { /* Handle click */ }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
