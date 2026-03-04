@@ -7,8 +7,10 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
@@ -24,20 +26,23 @@ import com.tikaydev.glasseffect.feature.settings.navigation.settingsEntry
 fun RootNavGraph(
     modifier: Modifier = Modifier,
     appState: AppState,
-    shouldShowNavRail: Boolean,
+    isLargeScreen: Boolean,
     onThemeToggle: () -> Unit
 ) {
+    // Add padding to the content area if the NavRail is visible to prevent overlap
+    val contentPadding = if (isLargeScreen && appState.shouldShowBottomBar()) {
+        Modifier.padding(start = 96.dp) // Width of NavRail (80dp) + its horizontal padding
+    } else {
+        Modifier
+    }
+
     SharedTransitionLayout {
         NavDisplay(
             backStack = appState.navBackStack,
             transitionSpec = {
-                // In Navigation 3, the targetState is a Scene<T>.
-                // For SinglePaneSceneStrategy, targetState.content is a List<NavEntry<T>>.
-                // We use the first entry's key to determine the destination.
                 val targetRoute = targetState.key
                 val initialRoute = initialState.key
 
-                // Check if either the entering or exiting route is a detail screen
                 if (targetRoute is HomeRoute.ImageDetailsRoute || initialRoute is HomeRoute.ImageDetailsRoute) {
                     fadeIn(animationSpec = spring(stiffness = 300f)) +
                             scaleIn(
@@ -46,7 +51,6 @@ fun RootNavGraph(
                             ) togetherWith
                             fadeOut(animationSpec = spring(stiffness = 300f))
                 } else {
-                    // Transition between top-level tabs (Home, Menu, Profile, Settings)
                     fadeIn(animationSpec = spring(stiffness = 300f)) +
                             scaleIn(
                                 initialScale = 0.96f,
@@ -62,7 +66,7 @@ fun RootNavGraph(
             ),
             entryProvider = entryProvider {
                 homeFlow(
-                    shouldUseNavRail = shouldShowNavRail,
+                    isLargeScreen = isLargeScreen,
                     onBack = { appState.navBackStack.removeLastOrNull() },
                     onImageClick = { imageId ->
                         appState.navBackStack.add(HomeRoute.ImageDetailsRoute(imageId))
@@ -70,17 +74,13 @@ fun RootNavGraph(
                     sharedTransitionScope = this@SharedTransitionLayout
                 )
 
-                menuEntry(
-                    shouldUseNavRail = shouldShowNavRail
-                )
-                profileEntry(
-                    shouldUseNavRail = shouldShowNavRail
-                )
+                menuEntry(isLargeScreen = isLargeScreen)
+                profileEntry(isLargeScreen = isLargeScreen)
                 settingsEntry(
                     onThemeToggle = onThemeToggle
                 )
             },
-            modifier = modifier,
+            modifier = modifier.then(contentPadding),
         )
     }
 }
