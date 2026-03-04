@@ -5,8 +5,8 @@ import com.tikaydev.glasseffect.core.designsystem.navigation.ProfileRoute
 import com.tikaydev.glasseffect.core.designsystem.navigation.Route
 import com.tikaydev.glasseffect.feature.profile.ProfileScreen
 
-fun EntryProviderScope<Route>.profileEntry(isLargeScreen: Boolean) {
+fun EntryProviderScope<Route>.profileEntry() {
     entry<ProfileRoute> {
-        ProfileScreen(isLargeScreen = isLargeScreen)
+        ProfileScreen()
     }
 }

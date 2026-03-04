@@ -15,8 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -35,11 +35,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,11 +44,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tikaydev.glasseffect.core.designsystem.provider.screenSize
+import com.tikaydev.glasseffect.core.designsystem.theme.AppTheme
 
 @Composable
-fun ProfileScreen(
-    isLargeScreen: Boolean = false
-) {
+fun ProfileScreen() {
+    val isLargeScreen = MaterialTheme.screenSize.isLargeScreen
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -209,8 +207,9 @@ private fun ProfileGridActionItem(
     Card(
         modifier = modifier.aspectRatio(1f),
         shape = RoundedCornerShape(10.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
         ),
         onClick = onClick
     ) {
@@ -252,10 +251,22 @@ private fun ProfileStat(label: String, value: String) {
     }
 }
 
-@Preview
+
+@Preview(
+    showSystemUi = true
+)
 @Composable
-private fun ProfileScreenPreview() {
-    ProfileScreen(
-        isLargeScreen = true
-    )
+fun ProfileScreenDarkPreview() {
+    AppTheme(isDarkTheme = true){
+        ProfileScreen()
+    }
+}
+@Preview(
+    showSystemUi = true
+)
+@Composable
+fun ProfileScreenLightPreview() {
+    AppTheme{
+        ProfileScreen()
+    }
 }
