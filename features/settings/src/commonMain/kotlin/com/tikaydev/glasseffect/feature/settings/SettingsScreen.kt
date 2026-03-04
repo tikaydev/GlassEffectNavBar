@@ -32,15 +32,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tikaydev.glasseffect.core.designsystem.theme.isDarkTheme
+import com.tikaydev.glasseffect.core.designsystem.provider.darkTheme
+import com.tikaydev.glasseffect.core.designsystem.theme.AppTheme
 
 @Composable
 fun SettingsScreen(
     onThemeToggle: () -> Unit
 ) {
     // Read the theme state from CompositionLocal to ensure it updates reactively
-    val isDarkMode = MaterialTheme.isDarkTheme.isDark
+    val isDarkMode = MaterialTheme.darkTheme.isDark
 
 
     Surface(
@@ -208,5 +210,25 @@ private fun SettingsItem(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
             )
         }
+    }
+}
+
+@Preview(
+    showSystemUi = true
+)
+@Composable
+fun SettingsScreenDarkPreview() {
+    AppTheme(isDarkTheme = true){
+        SettingsScreen {  }
+    }
+}
+
+@Preview(
+    showSystemUi = true
+)
+@Composable
+fun SettingsScreenLightPreview() {
+    AppTheme{
+        SettingsScreen {  }
     }
 }
