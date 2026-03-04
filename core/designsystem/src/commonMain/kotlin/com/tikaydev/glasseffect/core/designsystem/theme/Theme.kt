@@ -19,8 +19,8 @@ fun AppTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val seedColor = Color(0xFFFF942D)
-//    val seedColor = Color.Cyan
+//    val seedColor = Color(0xFFFF942D)
+    val seedColor = Color.Cyan
     val localDarkTheme = DarkTheme(isDarkTheme)
     val dynamicThemeState = rememberDynamicMaterialThemeState(
         isDark = isDarkTheme,
