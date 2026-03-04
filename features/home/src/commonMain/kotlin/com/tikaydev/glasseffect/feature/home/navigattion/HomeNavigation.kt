@@ -9,7 +9,7 @@ import com.tikaydev.glasseffect.feature.home.detail.ImageDetailsScreen
 import com.tikaydev.glasseffect.feature.home.images.ImageListRoute
 
 fun EntryProviderScope<Route>.homeFlow(
-    shouldUseNavRail: Boolean,
+    isLargeScreen: Boolean,
     onBack: () -> Unit,
     onImageClick: (Int) -> Unit,
     sharedTransitionScope: SharedTransitionScope
@@ -17,7 +17,7 @@ fun EntryProviderScope<Route>.homeFlow(
 
     entry<HomeRoute.ImageListRoute> {
         ImageListRoute(
-            shouldUseNavRail = shouldUseNavRail,
+            isLargeScreen = isLargeScreen,
             onClick = onImageClick,
             sharedTransitionScope = sharedTransitionScope,
             animatedVisibilityScope = LocalNavAnimatedContentScope.current

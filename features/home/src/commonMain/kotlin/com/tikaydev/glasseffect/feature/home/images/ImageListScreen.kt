@@ -19,6 +19,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.retain.retain
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,7 +35,7 @@ import dev.chrisbanes.haze.hazeSource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageListRoute(
-    shouldUseNavRail: Boolean,
+    isLargeScreen: Boolean,
     onClick: (Int) -> Unit,
     sharedTransitionScope: SharedTransitionScope? = null,
     animatedVisibilityScope: AnimatedVisibilityScope? = null
@@ -45,7 +46,7 @@ fun ImageListRoute(
             .fillMaxSize()
     ) {
         ImageListScreen(
-            shouldUseNavRail = shouldUseNavRail,
+            isLargeScreen = isLargeScreen,
             onClick = onClick,
             sharedTransitionScope = sharedTransitionScope,
             animatedVisibilityScope = animatedVisibilityScope
@@ -56,7 +57,7 @@ fun ImageListRoute(
 
 @Composable
 fun ImageListScreen(
-    shouldUseNavRail: Boolean,
+    isLargeScreen: Boolean,
     onClick: (Int) -> Unit,
     sharedTransitionScope: SharedTransitionScope? = null,
     animatedVisibilityScope: AnimatedVisibilityScope? = null
@@ -68,7 +69,7 @@ fun ImageListScreen(
 
     LazyVerticalGrid(
         state = listState,
-        columns = if (shouldUseNavRail) GridCells.Adaptive(minSize = 280.dp) else GridCells.Fixed(2),
+        columns = if (isLargeScreen) GridCells.Adaptive(minSize = 280.dp) else GridCells.Fixed(2),
         modifier = Modifier
             .hazeSource(hazeState)
             .fillMaxSize(),
