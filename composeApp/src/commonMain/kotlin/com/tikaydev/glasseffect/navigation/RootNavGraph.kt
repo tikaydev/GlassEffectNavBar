@@ -8,6 +8,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -17,6 +18,7 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.tikaydev.glasseffect.AppState
 import com.tikaydev.glasseffect.core.designsystem.navigation.HomeRoute
+import com.tikaydev.glasseffect.core.designsystem.provider.screenSize
 import com.tikaydev.glasseffect.feature.home.navigattion.homeFlow
 import com.tikaydev.glasseffect.feature.menu.navigation.menuEntry
 import com.tikaydev.glasseffect.feature.profile.navigation.profileEntry
@@ -26,9 +28,10 @@ import com.tikaydev.glasseffect.feature.settings.navigation.settingsEntry
 fun RootNavGraph(
     modifier: Modifier = Modifier,
     appState: AppState,
-    isLargeScreen: Boolean,
     onThemeToggle: () -> Unit
 ) {
+    val isLargeScreen = MaterialTheme.screenSize.isLargeScreen
+
     // Add padding to the content area if the NavRail is visible to prevent overlap
     val contentPadding = if (isLargeScreen && appState.shouldShowBottomBar()) {
         Modifier.padding(start = 96.dp) // Width of NavRail (80dp) + its horizontal padding
@@ -66,7 +69,6 @@ fun RootNavGraph(
             ),
             entryProvider = entryProvider {
                 homeFlow(
-                    isLargeScreen = isLargeScreen,
                     onBack = { appState.navBackStack.removeLastOrNull() },
                     onImageClick = { imageId ->
                         appState.navBackStack.add(HomeRoute.ImageDetailsRoute(imageId))
@@ -74,8 +76,8 @@ fun RootNavGraph(
                     sharedTransitionScope = this@SharedTransitionLayout
                 )
 
-                menuEntry(isLargeScreen = isLargeScreen)
-                profileEntry(isLargeScreen = isLargeScreen)
+                menuEntry()
+                profileEntry()
                 settingsEntry(
                     onThemeToggle = onThemeToggle
                 )
