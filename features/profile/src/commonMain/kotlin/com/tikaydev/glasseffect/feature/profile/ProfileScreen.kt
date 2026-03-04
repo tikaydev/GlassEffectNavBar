@@ -35,7 +35,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,7 +51,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProfileScreen(
-    shouldUseNavRail: Boolean = false
+    isLargeScreen: Boolean = false
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -57,8 +61,8 @@ fun ProfileScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
-            val columns = remember(shouldUseNavRail) {
-                if (shouldUseNavRail) {
+            val columns = remember(isLargeScreen) {
+                if (isLargeScreen) {
                     GridCells.Adaptive(minSize = 160.dp)
                 } else {
                     GridCells.Fixed(2)
@@ -252,6 +256,6 @@ private fun ProfileStat(label: String, value: String) {
 @Composable
 private fun ProfileScreenPreview() {
     ProfileScreen(
-        shouldUseNavRail = true
+        isLargeScreen = true
     )
 }
