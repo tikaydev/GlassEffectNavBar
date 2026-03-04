@@ -5,8 +5,8 @@ import com.tikaydev.glasseffect.core.designsystem.navigation.MenuRoute
 import com.tikaydev.glasseffect.core.designsystem.navigation.Route
 import com.tikaydev.glasseffect.feature.menu.MenuScreen
 
-fun EntryProviderScope<Route>.menuEntry(shouldUseNavRail: Boolean) {
+fun EntryProviderScope<Route>.menuEntry(isLargeScreen: Boolean) {
     entry<MenuRoute> {
-        MenuScreen(shouldUseNavRail = shouldUseNavRail)
+        MenuScreen(isLargeScreen = isLargeScreen)
     }
 }

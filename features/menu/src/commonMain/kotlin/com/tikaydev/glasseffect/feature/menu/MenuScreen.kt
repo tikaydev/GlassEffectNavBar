@@ -46,7 +46,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MenuScreen(
-    shouldUseNavRail: Boolean = false
+    isLargeScreen: Boolean = false
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -56,8 +56,8 @@ fun MenuScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
-            val columns = remember(shouldUseNavRail) {
-                if (shouldUseNavRail) {
+            val columns = remember(isLargeScreen) {
+                if (isLargeScreen) {
                     GridCells.Adaptive(minSize = 300.dp)
                 } else {
                     GridCells.Fixed(1)
@@ -249,7 +249,7 @@ private val generalMenuItems = listOf(
 @Composable
 private fun MenuScreenPreview() {
     MenuScreen(
-        shouldUseNavRail = true
+        isLargeScreen = true
     )
 }
 
